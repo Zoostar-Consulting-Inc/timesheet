@@ -11,4 +11,7 @@
 		<artifactId>zoostar-boot-starter-parent</artifactId>
 		<version>3.3.0</version>
 	</parent>
+	<modules>
+		<module>timesheet-api</module>
+	</modules>
 </project>

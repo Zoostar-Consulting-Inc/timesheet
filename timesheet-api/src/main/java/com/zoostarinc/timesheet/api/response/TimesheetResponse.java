@@ -10,10 +10,5 @@ import lombok.Setter;
 public class TimesheetResponse {
 
 	private final String value;
-
-	@Override
-	public String toString() {
-		return getValue();
-	}
 	
 }

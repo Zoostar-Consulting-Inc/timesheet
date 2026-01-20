@@ -4,10 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import net.zoostar.common.StringWrapper;
+import com.zoostarinc.timesheet.api.response.TimesheetResponse;
+import com.zoostarinc.timesheet.spi.workflow.state.impl.TimesheetStateDraft;
 
 class TimesheetControllerTest extends AbstractCommonTest {
 
@@ -21,8 +26,13 @@ class TimesheetControllerTest extends AbstractCommonTest {
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-		var object = om.readValue(response.getContentAsString(), StringWrapper.class);
-		assertThat(object.getValue()).isSameAs(object.toString()).isEqualTo("Draft Timesheet comming soon...");
+		var actual = om.readValue(response.getContentAsString(), TimesheetResponse.class);
+
+		assertThat(actual.getClass()).isEqualTo(TimesheetResponse.class);
+		assertThat(actual.getHours()).isZero();
+		assertThat(actual.getState()).isEqualTo(TimesheetStateDraft.NAME);
+		assertThat(actual.getPeriodEnding())
+				.isEqualTo(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY)));
 	}
 
 }

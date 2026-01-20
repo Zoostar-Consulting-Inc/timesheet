@@ -12,15 +12,15 @@ import lombok.Generated;
 @Generated
 @SpringBootApplication
 @EnableAspectJAutoProxy
-public class Timesheet extends SpringBootServletInitializer implements WebMvcConfigurer {
+public class TimesheetApi extends SpringBootServletInitializer implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Timesheet.class, args);
+		SpringApplication.run(TimesheetApi.class, args);
 	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Timesheet.class);
+		return application.sources(TimesheetApi.class);
 	}
 
 }

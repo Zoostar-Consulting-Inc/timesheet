@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: info
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': debug
+    '[org.springframework.security]': trace
+    '[org.springframework.transaction]': trace
+  pattern:
+    dateformat: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36}: %msg%n"

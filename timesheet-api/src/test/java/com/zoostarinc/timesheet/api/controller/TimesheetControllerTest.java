@@ -11,7 +11,7 @@ import java.time.temporal.TemporalAdjusters;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import com.zoostarinc.timesheet.api.response.TimesheetResponse;
+import com.zoostarinc.timesheet.core.model.TimesheetRequest;
 import com.zoostarinc.timesheet.spi.workflow.state.impl.TimesheetStateDraft;
 
 class TimesheetControllerTest extends AbstractCommonTest {
@@ -26,9 +26,9 @@ class TimesheetControllerTest extends AbstractCommonTest {
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-		var actual = om.readValue(response.getContentAsString(), TimesheetResponse.class);
+		var actual = om.readValue(response.getContentAsString(), TimesheetRequest.class);
 
-		assertThat(actual.getClass()).isEqualTo(TimesheetResponse.class);
+		assertThat(actual.getClass()).isEqualTo(TimesheetRequest.class);
 		assertThat(actual.getHours()).isZero();
 		assertThat(actual.getState()).isEqualTo(TimesheetStateDraft.NAME);
 		assertThat(actual.getPeriodEnding())

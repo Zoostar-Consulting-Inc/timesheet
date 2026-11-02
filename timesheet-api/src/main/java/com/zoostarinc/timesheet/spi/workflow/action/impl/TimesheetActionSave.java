@@ -1,12 +1,12 @@
 package com.zoostarinc.timesheet.spi.workflow.action.impl;
 
-import com.zoostarinc.timesheet.core.Timesheet;
+import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
 import com.zoostarinc.timesheet.spi.workflow.state.impl.AbstractTimeheetState;
 import com.zoostarinc.timesheet.spi.workflow.state.impl.TimesheetStateDraft;
 
 import net.zoostar.common.workflow.Action;
 
-public class TimesheetActionSave implements Action<Timesheet> {
+public class TimesheetActionSave implements Action<WorkflowableTimesheet> {
 
 	public static final String NAME = "Save";
 	
@@ -16,7 +16,7 @@ public class TimesheetActionSave implements Action<Timesheet> {
 	}
 
 	@Override
-	public void execute(Timesheet timesheet) {
+	public void execute(WorkflowableTimesheet timesheet) {
 		timesheet.setState(AbstractTimeheetState.getState(TimesheetStateDraft.NAME));
 	}
 

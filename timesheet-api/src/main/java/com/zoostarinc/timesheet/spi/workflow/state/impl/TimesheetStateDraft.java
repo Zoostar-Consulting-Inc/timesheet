@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import org.springframework.stereotype.Component;
 
-import com.zoostarinc.timesheet.core.Timesheet;
+import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
 import com.zoostarinc.timesheet.spi.workflow.action.impl.TimesheetActionSave;
 
 import net.zoostar.common.workflow.Action;
@@ -13,15 +13,15 @@ import net.zoostar.common.workflow.Action;
 @Component
 public class TimesheetStateDraft extends AbstractTimeheetState {
 
-	public static final String NAME = "DRAFT";
+	public static final String NAME = "Draft";
 	
 	public TimesheetStateDraft() {
 		super(NAME);
 	}
 	
 	@Override
-	protected Collection<Action<Timesheet>> initActions() {
-		Collection<Action<Timesheet>> actions = new HashSet<>();
+	protected Collection<Action<WorkflowableTimesheet>> initActions() {
+		Collection<Action<WorkflowableTimesheet>> actions = new HashSet<>();
 		actions.add(new TimesheetActionSave());
 		return actions;
 	}

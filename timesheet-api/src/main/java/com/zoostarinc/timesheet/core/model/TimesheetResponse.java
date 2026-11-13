@@ -11,11 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TimesheetResponse extends TimesheetRequest {
+	
+	private String state;
 
 	private Collection<String> actions;
 
 	public TimesheetResponse(LocalDate periodEnding, int hours, String state, Collection<String> actions) {
-		super(periodEnding, hours, state);
+		super(periodEnding, hours);
+		this.state = state;
 		this.actions = actions;
 	}
 

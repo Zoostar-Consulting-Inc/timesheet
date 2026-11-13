@@ -10,6 +10,5 @@ import net.zoostar.common.workflow.State;
 
 public interface TimesheetService {
 	Map<String, State<WorkflowableTimesheet>> getStates();
-	TimesheetEntity create(Supplier<TimesheetEntity> draftTimesheetEntitySupplier);
 	TimesheetEntity update(Supplier<WorkflowableTimesheet> requestTimesheetSupplier, String action);
 }

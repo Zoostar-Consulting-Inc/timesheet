@@ -18,7 +18,7 @@ public class WorkflowableTimesheet implements Workflowable {
 	private Integer hours;
 
 	private State<WorkflowableTimesheet> state;
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

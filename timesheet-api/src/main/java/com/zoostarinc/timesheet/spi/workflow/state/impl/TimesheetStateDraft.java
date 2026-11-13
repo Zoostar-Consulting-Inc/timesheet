@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
 import com.zoostarinc.timesheet.spi.workflow.action.impl.TimesheetActionSave;
 
+import lombok.ToString;
 import net.zoostar.common.workflow.Action;
 
 @Component
+@ToString(callSuper = true)
 public class TimesheetStateDraft extends AbstractTimeheetState {
 
 	public static final String NAME = "Draft";
@@ -22,7 +24,7 @@ public class TimesheetStateDraft extends AbstractTimeheetState {
 	@Override
 	protected Collection<Action<WorkflowableTimesheet>> initActions() {
 		Collection<Action<WorkflowableTimesheet>> actions = new HashSet<>();
-		actions.add(new TimesheetActionSave());
+		actions.add(new TimesheetActionSave(this));
 		return actions;
 	}
 

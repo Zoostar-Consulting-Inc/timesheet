@@ -10,8 +10,10 @@ import com.zoostarinc.timesheet.dao.entity.TimesheetEntity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.zoostar.common.workflow.State;
 
+@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class DraftTimesheetResponseSupplier implements Supplier<TimesheetResponse> {
@@ -22,9 +24,10 @@ public class DraftTimesheetResponseSupplier implements Supplier<TimesheetRespons
 
 	@Override
 	public TimesheetResponse get() {
+		log.info("Processing entity: {}...", timesheet);
 		Collection<String> actions = HashSet.newHashSet(2);
 		draft.getActions().forEach(action -> actions.add(action.getName()));
-		return new TimesheetResponse(timesheet.getPeriodEnding(), timesheet.getHours(), timesheet.getState(), actions);
+		return new TimesheetResponse(timesheet.getKey().getPeriodEnding(), timesheet.getHours(), timesheet.getState(), actions);
 	}
 
 }

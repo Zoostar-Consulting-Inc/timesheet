@@ -17,6 +17,4 @@ public class TimesheetRequest {
 	
 	private int hours;
 	
-	private String state;
-	
 }

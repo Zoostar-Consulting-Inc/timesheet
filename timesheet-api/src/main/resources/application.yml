@@ -1,0 +1,30 @@
+build:
+  name: '@build.number@'
+  version: '@project.version@'
+  timestamp: '@build.timestamp@'
+
+logs:
+  base:
+    dir: logs
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+
+spring:
+  profiles:
+    active:
+      - local # spring boot profile
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 360947813475-1amcto47193gakb413gqt105ik38ukd1.apps.googleusercontent.com
+            clientSecret: ${client.secret.timesheet.google}
+            scope:
+              - openid
+              - profile
+              - email

@@ -1,0 +1,14 @@
+logging:
+  level:
+    root: info
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': trace
+#    '[org.springframework.security]': info
+    '[org.springframework.transaction]': trace
+  pattern:
+    dateformat: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36}: %msg%n"
+
+spring:
+  datasource:
+    password: ${timesheet.datasource.password}
+    url: jdbc:h2:mem:timesheet

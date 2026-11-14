@@ -1,6 +1,7 @@
 package com.zoostarinc.timesheet.web.controller;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Arrays;
 
 import org.springframework.beans.BeansException;
@@ -56,7 +57,7 @@ public class SwaggerController implements ApplicationContextAware, InitializingB
 		log.info("Hello {}!", name);
 
 		model.addAttribute("name", name);
-		model.addAttribute("currentTime", OffsetDateTime.now().format(Utils.ISO_DATE_TIME_FORMAT_UPTO_SECONDS));
+		model.addAttribute("currentTime", OffsetDateTime.now(ZoneOffset.UTC).format(Utils.ISO_DATE_TIME_FORMAT_UPTO_SECONDS));
 		model.addAttribute("buildName", buildName);
 		model.addAttribute("buildTimestamp", buildTimestamp);
 		model.addAttribute("buildVersion", buildVersion);

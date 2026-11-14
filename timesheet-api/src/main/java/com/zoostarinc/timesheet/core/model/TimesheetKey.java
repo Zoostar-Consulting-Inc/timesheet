@@ -22,13 +22,5 @@ public class TimesheetKey {
 	private String userId;
 
 	private LocalDate periodEnding;
-	
-	public static void main(String[] args) {
-		var key1 = new TimesheetKey("userId", LocalDate.now());
-		log.info("Key 1: {}", key1);
-		var key2 = new TimesheetKey("userId", LocalDate.now());
-		log.info("Key 2: {}", key2);
-		log.info("Key 1 is equal to Key 2? {}", key1.equals(key2));
-	}
 
 }

@@ -2,7 +2,7 @@ package com.zoostarinc.timesheet.api.controller;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.TemporalAdjusters;
 
 import org.springframework.http.MediaType;
@@ -23,7 +23,6 @@ import com.zoostarinc.timesheet.core.model.TimesheetResponse;
 import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
 import com.zoostarinc.timesheet.core.request.RequestTimesheetSupplier;
 import com.zoostarinc.timesheet.service.TimesheetService;
-import com.zoostarinc.timesheet.service.impl.DefaultTimesheetService;
 import com.zoostarinc.timesheet.spi.workflow.action.impl.TimesheetActionSave;
 
 import lombok.RequiredArgsConstructor;
@@ -48,7 +47,7 @@ public class TimesheetController {
 		return ResponseEntity.ok(new DraftTimesheetResponseSupplier(timesheetStateDraft,
 				timesheetManager.update(
 						new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(),
-								new TimesheetRequest(LocalDate.now(ZoneId.of(DefaultTimesheetService.ZONE_UTC))
+								new TimesheetRequest(LocalDate.now(ZoneOffset.UTC)
 										.with(TemporalAdjusters.next(DayOfWeek.SATURDAY)), 0)),
 						TimesheetActionSave.NAME))
 				.get());
@@ -62,7 +61,7 @@ public class TimesheetController {
 						timesheetManager
 								.update(new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(),
 										new TimesheetRequest(request == null
-												? LocalDate.now(ZoneId.of(DefaultTimesheetService.ZONE_UTC))
+												? LocalDate.now(ZoneOffset.UTC)
 														.with(TemporalAdjusters.next(DayOfWeek.SATURDAY))
 												: request.getPeriodEnding(), 0)),
 										TimesheetActionSave.NAME))

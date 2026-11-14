@@ -28,9 +28,6 @@ import net.zoostar.kd.data.KeyBasedRepository;
 @RequiredArgsConstructor
 public class DefaultTimesheetService implements TimesheetService, InitializingBean {
 	
-	public static final String ZONE_UTC = "UTC";
-	
-
 	private Map<String, State<WorkflowableTimesheet>> states;
 	
 	private final State<WorkflowableTimesheet> timesheetStateDraft;

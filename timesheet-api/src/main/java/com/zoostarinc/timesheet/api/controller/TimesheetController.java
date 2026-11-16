@@ -1,9 +1,6 @@
 package com.zoostarinc.timesheet.api.controller;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.temporal.TemporalAdjusters;
+import java.util.Optional;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zoostarinc.timesheet.api.config.SecurityConfig;
 import com.zoostarinc.timesheet.api.response.DraftTimesheetResponseSupplier;
-import com.zoostarinc.timesheet.core.model.PeriodEndingRequest;
 import com.zoostarinc.timesheet.core.model.TimesheetRequest;
 import com.zoostarinc.timesheet.core.model.TimesheetResponse;
 import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
@@ -46,25 +42,19 @@ public class TimesheetController {
 	public ResponseEntity<TimesheetResponse> draft() {
 		return ResponseEntity.ok(new DraftTimesheetResponseSupplier(timesheetStateDraft,
 				timesheetManager.update(
-						new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(),
-								new TimesheetRequest(LocalDate.now(ZoneOffset.UTC)
-										.with(TemporalAdjusters.next(DayOfWeek.SATURDAY)), 0)),
+						new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(), Optional.empty()),
 						TimesheetActionSave.NAME))
 				.get());
 	}
 
 	@Timeable(threshold = 10)
 	@PostMapping(path = "/draft", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TimesheetResponse> draft(@RequestBody(required = false) PeriodEndingRequest request) {
-		return new SuccessfulRequestLoggerResponseEntity<TimesheetResponse, PeriodEndingRequest>(
+	public ResponseEntity<TimesheetResponse> draft(@RequestBody(required = false) TimesheetRequest request) {
+		return new SuccessfulRequestLoggerResponseEntity<TimesheetResponse, TimesheetRequest>(
 				new DraftTimesheetResponseSupplier(timesheetStateDraft,
-						timesheetManager
-								.update(new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(),
-										new TimesheetRequest(request == null
-												? LocalDate.now(ZoneOffset.UTC)
-														.with(TemporalAdjusters.next(DayOfWeek.SATURDAY))
-												: request.getPeriodEnding(), 0)),
-										TimesheetActionSave.NAME))
+						timesheetManager.update(
+								new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(), Optional.ofNullable(request)),
+								TimesheetActionSave.NAME))
 						.get(),
 				request, objectMapper);
 	}
@@ -74,9 +64,8 @@ public class TimesheetController {
 	public ResponseEntity<TimesheetResponse> update(@PathVariable String action,
 			@RequestBody TimesheetRequest request) {
 		return new SuccessfulRequestLoggerResponseEntity<TimesheetResponse, TimesheetRequest>(
-				new DraftTimesheetResponseSupplier(timesheetStateDraft,
-						timesheetManager.update(
-								new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(), request), action))
+				new DraftTimesheetResponseSupplier(timesheetStateDraft, timesheetManager.update(
+						new RequestTimesheetSupplier(SecurityConfig.getCurrentSubject(), Optional.of(request)), action))
 						.get(),
 				request, objectMapper);
 	}

@@ -1,4 +1,4 @@
-package com.zoostarinc.timesheet.web.controller;
+package com.zoostarinc.timesheet.app.controller;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;

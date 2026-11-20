@@ -4,11 +4,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.zoostarinc.timesheet.core.model.WorkflowableTimesheet;
-import com.zoostarinc.timesheet.dao.entity.TimesheetEntity;
 
 import net.zoostar.common.workflow.State;
 
 public interface TimesheetService {
 	Map<String, State<WorkflowableTimesheet>> getStates();
-	TimesheetEntity update(Supplier<WorkflowableTimesheet> requestTimesheetSupplier, String action);
+	WorkflowableTimesheet update(Supplier<WorkflowableTimesheet> requestTimesheetSupplier, String action);
 }

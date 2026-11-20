@@ -1,4 +1,4 @@
-package com.zoostarinc.timesheet.api.config;
+package com.zoostarinc.timesheet.app.config;
 
 import java.util.List;
 

@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 
 import com.zoostarinc.timesheet.core.model.TimesheetRequest;
 import com.zoostarinc.timesheet.core.model.TimesheetResponse;
-import com.zoostarinc.timesheet.spi.workflow.state.impl.TimesheetStateDraft;
 
 class TimesheetControllerTest extends AbstractCommonTest {
 
@@ -31,7 +30,7 @@ class TimesheetControllerTest extends AbstractCommonTest {
 
 		assertThat(actual.getClass()).isEqualTo(TimesheetRequest.class);
 		assertThat(actual.getHours()).isZero();
-		assertThat(actual.getState()).isEqualTo(TimesheetStateDraft.NAME);
+		assertThat(actual.getState()).isEqualTo("Draft");
 		assertThat(actual.getPeriodEnding())
 				.isEqualTo(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY)));
 	}
